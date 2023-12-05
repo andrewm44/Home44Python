@@ -1,20 +1,62 @@
 # Introduction 
-TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project. 
+Simple Python tasks fr Home44 Portal, mostyla round device control
 
-# Getting Started
-TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
-1.	Installation process
-2.	Software dependencies
-3.	Latest releases
-4.	API references
+A key element is the use of MQTT, via Mosquitto Broker
 
-# Build and Test
-TODO: Describe and show how to build your code and run the tests. 
+# Mosquitto install
 
-# Contribute
-TODO: Explain how other users and developers can contribute to make your code better. 
+```
+sudo apt install -y mosquitto mosquitto-clients
+```
 
-If you want to learn more about creating good readme files then refer the following [guidelines](https://docs.microsoft.com/en-us/azure/devops/repos/git/create-a-readme?view=azure-devops). You can also seek inspiration from the below readme files:
-- [ASP.NET Core](https://github.com/aspnet/Home)
-- [Visual Studio Code](https://github.com/Microsoft/vscode)
-- [Chakra Core](https://github.com/Microsoft/ChakraCore)
+and 
+```
+sudo systemctl enable mosquitto.service
+```
+
+test using a client from Windows
+[MQTT Explorer](https://mqtt-explorer.com/)
+
+
+then create a Python daemon to listen for messages
+
+use the library paho-mqtt
+
+and try this script
+```
+import paho.mqtt.client as mqtt
+import time
+
+def on_connect(client, userdata, flags, rc):
+    print(f"Connected with result code {rc}")
+    client.subscribe("your/topic")
+
+def on_message(client, userdata, msg):
+    print(f"Received message: {msg.payload.decode()} on topic {msg.topic}")
+
+client = mqtt.Client()
+client.on_connect = on_connect
+client.on_message = on_message
+
+# Replace 'your-broker-address' with your MQTT broker address
+client.connect("your-broker-address", 1883, 60)
+
+# Start the MQTT loop in the background
+client.loop_start()
+
+# Keep the script running
+try:
+    while True:
+        time.sleep(1)
+except KeyboardInterrupt:
+    print("Exiting...")
+    client.disconnect()
+
+```
+
+
+THEN:
+
+```
+pip install broadlink
+```
