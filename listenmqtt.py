@@ -1,16 +1,20 @@
 import paho.mqtt.client as mqtt
 import time
-from broadlink44a import sendmessage44 as sender44x
-from broadlink44a import b44_cli as sender44
+from broadlink44a import b44_cli as broadlinksender
 
 
 def on_connect(client, userdata, flags, rc):
     print(f"Connected with result code {rc}")
-    client.subscribe("mqtttest")
+    client.subscribe("rfremotesends")
 
 def on_message(client, userdata, msg):
     print(f"Received message: {msg.payload.decode()} on topic {msg.topic}")
-    sender44.testsend()
+    match msg.topic:
+        case "rfremotesends":
+            broadlinksender.sendcmd(msg.payload.decode())
+        case _:
+            print("unhandled topic")
+    
 
 client = mqtt.Client()
 client.on_connect = on_connect

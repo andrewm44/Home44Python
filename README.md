@@ -1,7 +1,9 @@
 # Introduction 
-Simple Python tasks fr Home44 Portal, mostyla round device control
+Simple Python tasks for Home44 Portal, mostly around device control
 
 A key element is the use of MQTT, via Mosquitto Broker
+
+Also lifted code for managing remote controls via a Broadlink device form python-broadlink
 
 # Mosquitto install
 
