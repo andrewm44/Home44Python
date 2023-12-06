@@ -1,6 +1,7 @@
 import paho.mqtt.client as mqtt
 import time
-from broadlink44a import sendmessage44 as sender44
+from broadlink44a import sendmessage44 as sender44x
+from broadlink44a import b44_cli as sender44
 
 
 def on_connect(client, userdata, flags, rc):
@@ -9,7 +10,7 @@ def on_connect(client, userdata, flags, rc):
 
 def on_message(client, userdata, msg):
     print(f"Received message: {msg.payload.decode()} on topic {msg.topic}")
-    sender44.send1("testing")
+    sender44.testsend()
 
 client = mqtt.Client()
 client.on_connect = on_connect

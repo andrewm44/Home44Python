@@ -15,7 +15,7 @@ sudo systemctl enable mosquitto.service
 ```
 
 test using a client from Windows
-[MQTT Explorer](https://mqtt-explorer.com/)
+[MQTTX](https://mqttx.app/)
 
 
 then create a Python daemon to listen for messages
@@ -60,3 +60,8 @@ THEN:
 ```
 pip install broadlink
 ```
+
+
+in .Net - 
+
+[MQTTnet](https://github.com/dotnet/MQTTnet)
