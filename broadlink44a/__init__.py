@@ -15,7 +15,7 @@ from .remote import rm, rm4, rm4mini, rm4pro, rmmini, rmminib, rmpro
 from .sensor import a1
 from .switch import bg1, mp1, sp1, sp2, sp2s, sp3, sp3s, sp4, sp4b
 
-import sendmessage44 as s44
+
 
 SUPPORTED_TYPES = {
     sp1: {
